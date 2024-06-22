@@ -30,7 +30,17 @@ export const register = async (req , res) =>{
 
 
 export const login = async (req , res) => {
-    
+
+    const login_data = req.body
+
+    const user = await Users.findOne({email : login_data.email })
+
+    if(!user) {
+        return res.status(404).json({message : "user not found please register"})
+    }
+
+
+     bcrypt.compare()
 }
 
 
