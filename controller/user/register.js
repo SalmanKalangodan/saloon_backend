@@ -38,9 +38,23 @@ export const login = async (req , res) => {
     if(!user) {
         return res.status(404).json({message : "user not found please register"})
     }
+    
+    const strpassword = login_data.password.toString()
 
+     bcrypt.compare(strpassword, user.password , (err , result)=>{
 
-     bcrypt.compare()
+        if (err) throw err
+
+        if(result){
+           const token  = 'salman'
+           res.cookie ('access_token' , token)
+           return res.status(200).json({token})
+        }else {
+            return res.status(400).json('invalid password')
+        }
+
+     })
+
 }
 
 
